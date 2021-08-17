@@ -6,7 +6,7 @@ import numpy as np
 
 
 # 画像ディレクトリ
-IMG_DIR = './img'
+IMG_DIR = 'img'
 # バッチサイズ
 BATCH_SIZE = 32
 # VGG16を使用するため以下のサイズに設定
@@ -22,10 +22,10 @@ TEST_SIZE = 0.2
 RANDOM_STATE = 123
 
 # 学習率
-LEARNING_RATE = 1e-6
+LEARNING_RATE = 3e-5
 
 # エポック数
-INITIAL_EPOCHS = 50
+INITIAL_EPOCHS = 10
 
 # ------------------------------------------------------------
 # 1.画像とラベル取得と訓練・検証・テスト分割
@@ -82,9 +82,9 @@ base_model.trainable = False
 # Flatten(=平坦化層)追加
 x = tf.keras.layers.Flatten()(base_model.output)
 # FC1層追加
-x = tf.keras.layers.Dense(1024, activation='relu')(x)
+x = tf.keras.layers.Dense(4096, activation='relu')(x)
 # FC2層追加
-x = tf.keras.layers.Dense(1024, activation='relu')(x)
+x = tf.keras.layers.Dense(4096, activation='relu')(x)
 # 入力画像の形状
 transfer_learning_inputs = base_model.inputs
 # predictions層の追加
@@ -102,7 +102,7 @@ transfer_learning_model.compile(optimizer=
                                 loss='sparse_categorical_crossentropy',
                                 metrics=['accuracy'])
 
-# モデルの学習
+# (5) モデルの学習
 history = transfer_learning_model.fit(img_X_train, img_Y_train,
                                       epochs=INITIAL_EPOCHS,
                                       batch_size=BATCH_SIZE,
@@ -138,7 +138,7 @@ plt.plot(loss, label='Training Loss')
 plt.plot(val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.ylabel('Cross Entropy')
-plt.ylim([0,5.0])
+plt.ylim([0, 10.0])
 plt.title('Training and Validation Loss')
 plt.xlabel('epoch')
 plt.show()
