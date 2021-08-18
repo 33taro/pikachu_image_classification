@@ -25,7 +25,7 @@ RANDOM_STATE = 123
 LEARNING_RATE = 3e-5
 
 # エポック数
-INITIAL_EPOCHS = 10
+INITIAL_EPOCHS = 5
 
 # ------------------------------------------------------------
 # 1.画像とラベル取得と訓練・検証・テスト分割
@@ -113,6 +113,7 @@ history = transfer_learning_model.fit(img_X_train, img_Y_train,
 # 3.画像分類と精度
 # ------------------------------------------------------------
 # テストデータの画像分類結果を標準出力
+# [損失関数, 正解率]
 print(transfer_learning_model.evaluate(img_X_test, img_Y_test, verbose=0))
 
 # 訓練と検証
